@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story make</title>
+    <style>
+        #canvas1  {
+            border:2px solid black;
+            position: absolute;
+            top: 50%;
+            left:50%;
+            translate: -50%  -50%;
+        }
+        .assets{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas1"></canvas>
+    <div class="assets">
+        <img src="images/office.png" id="bg">
+        <img src="images/mary.png" id="mary">
+    </div>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
