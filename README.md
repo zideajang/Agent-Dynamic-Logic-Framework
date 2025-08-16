@@ -1,72 +1,75 @@
-# Agent-Dynamic-Logic-Framework
+# Agent-Dynamic-Logic-Framework 🦾
 
 
 
 #### 核心理念
 这个框架通过创建一个可交互、有物理规则、且时间会流逝的 **“虚拟世界”**，来测试LLM的逻辑推理、规划、记忆和决策能力。LLM将作为这个世界中的 **“代理”**，接收环境信息，并做出行动决策以完成特定任务。
 
-
-
-```
+- 逻辑推理
+- 规划
+- 记忆和决策能力
 
 ## 安装
+```
+https://github.com/zideajang/Agent-Dynamic-Logic-Framework.git
+```
+```
+cd Agent-Dynamic-Logic-Framework
+```
+
+- 安装构建工具 [rollupjs](https://rollupjs.org/)
+
+```
+npm install rollup --save-dev
+```
+```
+npm run build
+```
+
+## Demo 👩🏻‍🦰 密室逃生(更新中)
+### 准备工作
+- 安装 [ollama](https://ollama.com/)
+- 安装构建工具 [rollupjs](https://rollupjs.org/)
+
+<div align="center">
+<img src="./assets/cover.png" width="50%">
+</div>
+
 
 ## 人物设定
-https://liberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light
+
+创建人物素材资源
+[Universal-LPC-Spritesheet-Character-Generator](https://liberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light)
 
 
 好的，这是一个基于模拟来测试LLM（大型语言模型）逻辑能力的框架设计，它将你提出的“有趣、可视化、时空、自由移动空间”等概念融入其中。
 
-### 框架名称：时空逻辑测试模拟器（STLS）
 
-#### 核心理念
-这个框架通过创建一个可交互、有物理规则、且时间会流逝的 **“虚拟世界”**，来测试LLM的逻辑推理、规划、记忆和决策能力。LLM将作为这个世界中的**“代理”**，接收环境信息，并做出行动决策以完成特定任务。
+<div align="center">
+<img src="./assets/screenshot_001.png" width="50%">
+</div>
 
----
+## 环境的设置
+### Grid World
+- ROW(网格行数) 
+- COL(网格列数)
+- TILE_SIZE(网格单元大小)
+- collisionData(碰撞设置) 这里 1 表示可行驶区域、0 表示障碍物
+### Item(物品)
+- itemData ({x:,y:,value}) 位置信息
 
-### 框架主要模块
+### Actor
+- 控制能力，行动能力、语言能力、决策能力
+- speed 
+- maxFrame
+### 
 
-#### 1. 环境与可视化模块 (Environment & Visualization)
-* **空间建模：** 采用一个网格化（Grid-based）或图状（Graph-based）的三维或二维空间。
-    * **网格模型：** 房间、迷宫、城市等可以被划分为一个个单元格，每个单元格有其属性（如墙壁、地面、水、陷阱）。
-    * **图模型：** 将空间中的关键地点（节点）和连接它们的路径（边）抽象化，用于测试更高级的路线规划能力。
-* **时间建模：** 引入时间流逝的概念，让环境变得动态。
-    * **动态对象：** 某些对象会随着时间移动（如巡逻的机器人、移动的平台）。
-    * **限时事件：** 某些任务必须在特定时间点前完成（如限时开启的门、倒计时的炸弹）。
-* **可视化界面：** 提供一个可视化的UI，实时显示LLM控制的代理位置、环境状态和任务进展。这有助于直观地观察LLM的决策过程和结果。
 
-#### 2. 代理与行为模块 (Agent & Behavior)
-* **代理（Agent）：** 代表LLM在虚拟世界中的化身。它具有以下属性：
-    * **状态：** 位置（坐标）、生命值、物品清单、当前任务。
-    * **感知（Perception）：** 能够“看到”周围的环境信息（如相邻单元格的状态、远处物体的颜色、房间内时钟的时间）。
-* **行动（Actions）：** LLM可以控制代理执行有限的、预定义的动作集合：
-    * **移动：** `move(direction)`，如 `move("east")`。
-    * **互动：** `interact(object)`，如 `interact("door")`。
-    * **使用物品：** `use(item, object)`，如 `use("key", "door")`。
-    * **询问：** `ask(question)`，向环境（或另一个LLM代理）提问。
+### World Manager
+- Agent和Agent 之间交互
+- Agent和环境之间交互
+- Agent和Item之间交互
 
-#### 3. 任务与问题生成器 (Task & Problem Generator)
-这个模块是核心，用于生成各种测试LLM不同能力的逻辑问题。
-* **简单问题：** 基础的时空推理。
-    * **路径规划：** “从起点A找到最短路径到达终点B。”
-    * **避障：** “从A点走到B点，避开所有障碍物。”
-* **复杂问题：** 结合动态环境、资源和多步推理。
-    * **动态避障：** “找到一条路径，绕过正在巡逻的机器人，到达安全区。”（测试对时间、速度和未来位置的预测能力）
-    * **资源管理：** “收集3个红色宝石，然后把它们全部放入一个箱子里，但每个宝石只能在特定时间段内被触摸。”（测试规划、时序和记忆能力）
-    * **协作与冲突解决：** “有两个代理（由两个LLM控制），需要同时按下两个开关来打开一扇门。”（测试协作、沟通和对外部事件的同步能力）
+### Event Manager
 
-#### 4. 评估与报告模块 (Evaluation & Reporting)
-* **自动评估：** 框架可以自动判断LLM是否成功完成任务。
-* **核心指标：**
-    * **成功率：** 成功完成任务的百分比。
-    * **效率：** 完成任务所用的步数或时间。
-    * **逻辑一致性：** 代理的行动是否与其过去的决策保持一致。
-* **错误分析：** 记录LLM在何处做出错误决策（如试图穿越墙壁、忘记关键物品、未能理解谜题）。
-* **报告生成：** 自动生成详细的测试报告，包含每个任务的执行轨迹、错误日志和分数。
 
-### 框架如何模拟实际问题？
-* **物流与机器人导航：** 路径规划和动态避障问题可以模拟自动驾驶汽车或仓库机器人的路径规划。
-* **自动化脚本：** 资源管理和多步推理任务可以模拟自动化工作流，如软件开发中的构建、测试和部署流程。
-* **人机协作：** 多代理协作任务可以模拟LLM作为虚拟助手与用户或其他AI系统协同完成复杂工作。
-
-这个框架通过将抽象的逻辑问题转化为具象的、可观察的时空挑战，能够更全面、更细致地评估LLM的逻辑能力，并为模型的优化提供直观、量化的数据。

@@ -62,7 +62,6 @@ window.addEventListener('load',function(){
                 { x: 8 * TILE_SIZE, y: 5 * TILE_SIZE },
                 { x: 10 * TILE_SIZE, y: 5 * TILE_SIZE },
             ];
-            console.log(111)
 
             this.currentWaypointIndex = 0;
             this.lastWaypointTime = 0;
