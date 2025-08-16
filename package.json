@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c --bundleConfigAsCjs"
+  },
+  "devDependencies": {
+    "rollup": "^4.46.2"
+  }
+}
